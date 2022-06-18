@@ -20,28 +20,28 @@ export default class TodoController {
 
     async createTodo(req, res) {
         if (!req.body) {
-            res.status(400).json({ message: 'Missing request data' })
+            res.status(400).json({ message: 'Missing request data 😠' })
             return;
         }
 
         if (!req.body.title || typeof req.body.title !== "string") {
-            res.status(400).json({ message: 'Missing "title", which must be a string' })
+            res.status(400).json({ message: 'Missing "title", which must be a string 😠' })
             return;
         }
 
         if (!req.body.dueDate) {
-            res.status(400).json({ message: 'Missing "dueDate"'});
+            res.status(400).json({ message: 'Missing "dueDate" 😠'});
             return;
         }
 
         const dueDate = new Date(req.body.dueDate);
         if (Number.isNaN(dueDate)) {
-            res.status(400).json({ message: 'Property "dueDate" must be a valid RFC3339 date'});
+            res.status(400).json({ message: 'Property "dueDate" must be a valid RFC3339 date 😠'});
             return;
         }
 
         if (!req.body.priority || typeof req.body.priority !== "number") {
-            res.status(400).json({ message: 'Missing "priority", which must be a number' })
+            res.status(400).json({ message: 'Missing "priority", which must be a number 😠' })
             return;
         }
 
@@ -59,15 +59,15 @@ export default class TodoController {
 
     async getTodo(req, res) {
         const { host } = req.headers;
-        const { taskId } = req.params;
-        if (taskId?.length < 1) {
-            res.status(404).json({message: 'Not found'});
+        const { todoId } = req.params;
+        if (todoId?.length < 1) {
+            res.status(404).json({message: 'Not found 😱'});
             return;
         }
 
-        const record = await this.#database.find({ _id: taskId });
+        const record = await this.#database.find({ _id: todoId });
         if (!record.length) {
-            res.status(404).json({message: 'Not found'});
+            res.status(404).json({message: 'Not found 😱'});
             return;
         }
 
@@ -81,21 +81,20 @@ export default class TodoController {
     async deleteTodo(req, res) {
         const { taskId } = req.params;
         if (taskId?.length < 1) {
-            res.status(404).json({message: 'Not found'});
+            res.status(404).json({message: 'Not found 😱'});
             return;
         }
 
         const totalDeletedRecords = await this.#database.remove({ _id: taskId });
         if (totalDeletedRecords === 0) {
-            res.status(404).json({message: 'Not found'});
+            res.status(404).json({message: 'Not found 😱'});
             return;
         }
 
         res.status(204).send();
     }
 
-    // eslint-disable-next-line class-methods-use-this
-    #transformDbRecord(host, record) {
+    static #transformDbRecord(host, record) {
         return {
             id: record._id,
             creationDate: new Date(record.creationDate).toISOString(),

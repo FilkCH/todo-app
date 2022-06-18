@@ -12,8 +12,8 @@ export const listTemplate = `
 `;
 
 export const emptyListTemplate = `
-        <div class="no-notes">
-            <span class="material-icons">sentiment_very_satisfied</span>
-            Aktuell keine Pendenzen vorhanden.
-        </div>
-    `;
+    <div class="no-notes">
+        <span class="material-icons">sentiment_very_satisfied</span>
+        Aktuell keine Pendenzen vorhanden.
+    </div>
+`;

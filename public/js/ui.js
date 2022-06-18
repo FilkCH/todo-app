@@ -6,31 +6,10 @@ import { addTodo } from "./todos.js";
 import { themeHandler, setTheme } from "./utility/utility-theme-handler.js";
 import toggleVisiblity from "./utility/utility-visibility-toggler.js";
 
-//
-// HANDLEBAR HELPERS
-//
-
-
-
-
-//
-// TEMPLATE RENDERING
-//
-// const renderHTML = (todoData) => {
-    // const rawTemplate = document.querySelector('#todo-item-template').innerHTML;
-    // const compiledTemplate = Handlebars.compile(rawTemplate);
-    // const renderedOutput = compiledTemplate(todoData);
-    //
-    // const todoContainer = document.querySelector('.todos');
-    // todoContainer.innerHTML = renderedOutput;
-// }
-// Set array and call rendering of initial view
-let todoArray = JSON.parse(localStorage.getItem("todoArray") || "[]");
 
 //
 // VARIABLES
 //
-const storageContainer = 'todoArray';
 const dataPopup = '[data-name="data-popup"]';
 const settingsPopup = '[data-name="settings-popup"]';
 const defaultHiddenClass = 'hidden';
@@ -57,12 +36,6 @@ const priorityThree = document.querySelector('#three');
 //
 // FUNCTIONS
 //
-
-// Set local storage container
-const setLocalStorage = (container, array) => {
-    localStorage.setItem(container, JSON.stringify(array));
-};
-
 
 // Handle list items by event type
 const handleTodoList = (e) => {
@@ -131,7 +104,6 @@ const saveTodo = async (e) => {
     //     foundItem.done = dataFormElements.done.checked || false;
     // }
 
-    setLocalStorage(storageContainer, todoArray);
 };
 
 // Reset all inputs fields
@@ -201,5 +173,3 @@ export const initUi = () => {
 
     window.addEventListener("DOMContentLoaded", () => setTheme());
 }
-
-export default { stuff: 1 }
