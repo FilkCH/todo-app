@@ -12,7 +12,7 @@ export default class TodoController {
 
         const response = {
             total: dbRecords.length,
-            items: dbRecords.map(record => this.#transformDbRecord(host, record))
+            items: dbRecords.map(record => this.transformDbRecord(host, record))
         }
 
         res.send(response);
@@ -71,7 +71,7 @@ export default class TodoController {
             return;
         }
 
-        res.send(this.#transformDbRecord(host, record[0]))
+        res.send(this.transformDbRecord(host, record[0]))
     }
 
     patchTodo(req, res) {
@@ -94,7 +94,7 @@ export default class TodoController {
         res.status(204).send();
     }
 
-    static #transformDbRecord(host, record) {
+    static transformDbRecord(host, record) {
         return {
             id: record._id,
             creationDate: new Date(record.creationDate).toISOString(),
