@@ -115,22 +115,6 @@ const resetInputFields = () => {
     priorityThree.checked = true;
 };
 
-// // Sort item array
-// const sortTodoItems = (arr, type, reverse) => {
-//     this.arr.sort((a,b) => a[this.type] - b[this.type]);
-//     return this.reverse ? this.arr.reverse() : this.arr;
-// }
-//
-// // Filter item array
-// const filterTodoItems = (arr, filters) => {
-//     if (this.type === "done") {
-//         this.arr.filter(items => items.done === true);
-//     } else if (this.type === "priority") {
-//         this.arr.filter();
-//     }
-//     return this.arr;
-// }
-
 
 
 //

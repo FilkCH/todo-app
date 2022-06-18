@@ -9,6 +9,15 @@ export default class TodoController {
         const { host } = req.headers;
         const includeDoneTodos = req.query.include_done === 'true';
         const dbRecords = await this.#database.find(includeDoneTodos ? {} : { done: false });
+        const { sortBy, sortOrder } = req.query;
+
+        if (sortBy) {
+            dbRecords.sort((a,b) => a[sortBy] - b[sortBy]);
+        }
+
+        if (sortOrder) {
+            if (sortOrder === 'asc') dbRecords.reverse();
+        }
 
         const response = {
             total: dbRecords.length,
@@ -24,8 +33,13 @@ export default class TodoController {
             return;
         }
 
-        if (!req.body.title || typeof req.body.title !== "string") {
-            res.status(400).json({ message: 'Missing "title", which must be a string 😠' })
+        if (!req.body.title) {
+            res.status(400).json({ message: 'Missing "title" 😠' })
+            return;
+        }
+
+        if (typeof req.body.title !== "string") {
+            res.status(400).json({ message: 'Property "title" must be a string 😠' })
             return;
         }
 
@@ -36,12 +50,17 @@ export default class TodoController {
 
         const dueDate = new Date(req.body.dueDate);
         if (Number.isNaN(dueDate)) {
-            res.status(400).json({ message: 'Property "dueDate" must be a valid RFC3339 date 😠'});
+            res.status(400).json({ message: 'Property "dueDate" must be a valid RFC 3339 date 😠'});
             return;
         }
 
-        if (!req.body.priority || typeof req.body.priority !== "number") {
-            res.status(400).json({ message: 'Missing "priority", which must be a number 😠' })
+        if (!req.body.priority) {
+            res.status(400).json({ message: 'Missing "priority" 😠' })
+            return;
+        }
+
+        if (typeof req.body.priority !== "number") {
+            res.status(400).json({ message: 'Property "priority" must be a number 😠' })
             return;
         }
 
@@ -53,7 +72,7 @@ export default class TodoController {
             priority: req.body.priority
         })
 
-        res.header("Location", `http://${req.headers.host}/todos/${newRecord._id}`)
+        res.header("Location", `http://${req.headers.host}/todos/item/${newRecord._id}`)
         res.status(201).send();
     }
 
@@ -82,7 +101,6 @@ export default class TodoController {
         const { todoId } = req.params;
 
         if (todoId?.length < 1) {
-            console.log("error 1")
             res.status(404).json({message: 'Not found 😱'});
             return;
         }
@@ -90,7 +108,6 @@ export default class TodoController {
         const totalDeletedRecords = await this.#database.remove({ _id: todoId });
 
         if (totalDeletedRecords === 0) {
-            console.log("error 2")
             res.status(404).json({message: 'Not found 😱'});
             return;
         }
@@ -108,7 +125,7 @@ export default class TodoController {
             priority: record.priority,
             _links: {
                 self: {
-                    href: `http://${host}/todos/${record._id}`
+                    href: `http://${host}/todos/item/${record._id}`
                 }
             }
         }

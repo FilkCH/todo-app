@@ -6,8 +6,7 @@ export const loadList = async () => {
     const todos = await todosResponse.json();
 
     const listNode = document.querySelector('#todo-item-template');
-    const renderedTemplate = Mustache.render(todos.total ? listTemplate : emptyListTemplate, todos);
-    listNode.innerHTML = renderedTemplate;
+    listNode.innerHTML = Mustache.render(todos.total ? listTemplate : emptyListTemplate, todos);
 }
 
 
