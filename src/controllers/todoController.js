@@ -12,7 +12,7 @@ export default class TodoController {
 
         const response = {
             total: dbRecords.length,
-            items: dbRecords.map(record => this.transformDbRecord(host, record))
+            items: dbRecords.map(record => this.constructor.transformDbRecord(host, record))
         }
 
         res.send(response);
@@ -71,7 +71,7 @@ export default class TodoController {
             return;
         }
 
-        res.send(this.transformDbRecord(host, record[0]))
+        res.send(this.constructor.transformDbRecord(host, record[0]))
     }
 
     patchTodo(req, res) {
