@@ -43,13 +43,13 @@ const handleTodoList = (e) => {
     const id = parseInt(item.dataset.creationDate, 10);
 
     // Delete an item
-    if (e.target.closest('div').matches('[data-action="delete"]')) {
+    if (e.target.closest('div') && e.target.closest('div').matches('[data-action="delete"]')) {
         todoArray = todoArray.filter(entry => entry.creationDate !== id);
         setLocalStorage(storageContainer, todoArray);
     }
 
     // Edit an item
-    if (e.target.closest('div').matches('[data-action="edit"]')) {
+    if (e.target.closest('div') && e.target.closest('div').matches('[data-action="edit"]')) {
         toggleVisiblity(dataPopup, defaultHiddenClass);
         titleField.focus();
 

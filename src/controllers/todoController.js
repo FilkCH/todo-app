@@ -7,8 +7,8 @@ export default class TodoController {
 
     async searchTodo(req, res) {
         const { host } = req.headers;
-        const includeDoneTasks = req.query.include_done === 'true';
-        const dbRecords = await this.#database.find(includeDoneTasks ? {} : { done: false });
+        const includeDoneTodos = req.query.include_done === 'true';
+        const dbRecords = await this.#database.find(includeDoneTodos ? {} : { done: false });
 
         const response = {
             total: dbRecords.length,
@@ -79,14 +79,18 @@ export default class TodoController {
     }
 
     async deleteTodo(req, res) {
-        const { taskId } = req.params;
-        if (taskId?.length < 1) {
+        const { todoId } = req.params;
+
+        if (todoId?.length < 1) {
+            console.log("error 1")
             res.status(404).json({message: 'Not found 😱'});
             return;
         }
 
-        const totalDeletedRecords = await this.#database.remove({ _id: taskId });
+        const totalDeletedRecords = await this.#database.remove({ _id: todoId });
+
         if (totalDeletedRecords === 0) {
+            console.log("error 2")
             res.status(404).json({message: 'Not found 😱'});
             return;
         }
