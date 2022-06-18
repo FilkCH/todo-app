@@ -1,0 +1,8 @@
+.idea
+.cache
+.parcel-cache
+node_modules
+dist
+public/css/compiled.css
+public/css/compiled.css.map
+src/data/database.db
