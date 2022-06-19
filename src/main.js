@@ -1,6 +1,6 @@
 import express from 'express';
 import Nedb from 'nedb-promises';
-import TodoController from "./controllers/todoController.js";
+import TodoController from "./controller/todoController.js";
 import dummyData from "./data/dummyData.js";
 
 const app = express();
@@ -21,9 +21,9 @@ app.use(express.json());
 
 app.get('/todos', (req, res) => todo.searchTodo(req, res));
 app.post('/todos', (req, res) => todo.createTodo(req, res));
-app.get('/todos/item/:todoId', (req, res) => todo.getTodo(req, res));
-app.patch('/todos/item/:todoId', (req, res) => todo.patchTodo(req, res));
-app.delete('/todos/item/:todoId', (req, res) => todo.deleteTodo(req, res));
+app.get('/todos/:todoId', (req, res) => todo.getTodo(req, res));
+app.patch('/todos/:todoId', (req, res) => todo.patchTodo(req, res));
+app.delete('/todos/:todoId', (req, res) => todo.deleteTodo(req, res));
 
 app.listen(port, () => {
     // eslint-disable-next-line no-console

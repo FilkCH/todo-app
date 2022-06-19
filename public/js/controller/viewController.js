@@ -1,10 +1,8 @@
-// TODO: Clicks into article item produce console error
 // TODO: Filter and sorting functions
-// TODO: Include nedb, express and REST API
 
-import { addTodo } from "./todos.js";
-import { themeHandler, setTheme } from "./utility/utility-theme-handler.js";
-import { toggleVisiblity } from "./utility/utility-visibility-toggler.js";
+import { addTodo, deleteTodo, loadList } from "../service/todosService.js";
+import { themeHandler, setTheme } from "../view/utility/utility-theme-handler.js";
+import { toggleVisiblity } from "../view/utility/utility-visibility-toggler.js";
 
 
 //
@@ -40,44 +38,43 @@ const priorityThree = document.querySelector('#three');
 // Handle list items by event type
 const handleTodoList = (e) => {
     const item = e.target.closest('article');
-    const id = parseInt(item.dataset.creationDate, 10);
+    const id = item.dataset.id;
 
     // Delete an item
     if (e.target.closest('div') && e.target.closest('div').matches('[data-action="delete"]')) {
-        todoArray = todoArray.filter(entry => entry.creationDate !== id);
-        setLocalStorage(storageContainer, todoArray);
+        deleteTodo(id);
     }
 
     // Edit an item
-    if (e.target.closest('div') && e.target.closest('div').matches('[data-action="edit"]')) {
-        toggleVisiblity(dataPopup, defaultHiddenClass);
-        titleField.focus();
-
-        const updateArray = todoArray.filter(entry => entry.creationDate === id);
-
-        dataFormElements.title.value = updateArray[0].title;
-        dataFormElements.duedate.value = new Date(updateArray[0].dueDate).toISOString().slice(0,10);
-
-        if (updateArray[0].done === true) {
-            dataFormElements.done.checked = true;
-        }
-
-        switch (updateArray[0].priority) {
-            case '1':
-                priorityOne.checked = true;
-                break;
-            case '2':
-                priorityTwo.checked = true;
-                break;
-            case '3':
-                priorityThree.checked = true;
-                break;
-            default:
-                priorityOne.checked = true;
-        }
-
-        dataFormElements.setid.value = id;
-    }
+    // if (e.target.closest('div') && e.target.closest('div').matches('[data-action="edit"]')) {
+    //     toggleVisiblity(dataPopup, defaultHiddenClass);
+    //     titleField.focus();
+    //
+    //     const updateArray = todoArray.filter(entry => entry.creationDate === id);
+    //
+    //     dataFormElements.title.value = updateArray[0].title;
+    //     dataFormElements.duedate.value = new Date(updateArray[0].dueDate).toISOString().slice(0,10);
+    //
+    //     if (updateArray[0].done === true) {
+    //         dataFormElements.done.checked = true;
+    //     }
+    //
+    //     switch (updateArray[0].priority) {
+    //         case '1':
+    //             priorityOne.checked = true;
+    //             break;
+    //         case '2':
+    //             priorityTwo.checked = true;
+    //             break;
+    //         case '3':
+    //             priorityThree.checked = true;
+    //             break;
+    //         default:
+    //             priorityOne.checked = true;
+    //     }
+    //
+    //     dataFormElements.setid.value = id;
+    // }
 };
 
 // Save a new item
@@ -120,19 +117,17 @@ const resetInputFields = () => {
 //
 // EVENT LISTENERS
 //
-
-
 export const initUi = () => {
     saveButton.addEventListener('click', (e) => {
         saveTodo(e);
         toggleVisiblity(dataPopup, defaultHiddenClass);
         resetInputFields();
-        renderHTML(todoArray);
+        loadList();
     });
 
     todoList.addEventListener("click", (e) => {
         handleTodoList(e);
-        renderHTML(todoArray);
+        loadList();
     });
 
     closeButton.addEventListener('click', (e) => {

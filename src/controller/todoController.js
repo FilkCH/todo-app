@@ -49,6 +49,7 @@ export default class TodoController {
         }
 
         const dueDate = new Date(req.body.dueDate);
+
         if (Number.isNaN(dueDate)) {
             res.status(400).json({ message: 'Property "dueDate" must be a valid RFC 3339 date 😠'});
             return;
@@ -72,13 +73,14 @@ export default class TodoController {
             priority: req.body.priority
         })
 
-        res.header("Location", `http://${req.headers.host}/todos/item/${newRecord._id}`)
+        res.header("Location", `http://${req.headers.host}/todos/${newRecord._id}`)
         res.status(201).send();
     }
 
     async getTodo(req, res) {
         const { host } = req.headers;
         const { todoId } = req.params;
+
         if (todoId?.length < 1) {
             res.status(404).json({message: 'Not found 😱'});
             return;
@@ -125,7 +127,7 @@ export default class TodoController {
             priority: record.priority,
             _links: {
                 self: {
-                    href: `http://${host}/todos/item/${record._id}`
+                    href: `http://${host}/todos/${record._id}`
                 }
             }
         }

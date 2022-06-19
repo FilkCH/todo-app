@@ -10,7 +10,7 @@
     "w3c": "html-validator --file public/views/layouts/index.hbs --verbose",
     "lint": "eslint \"public/js/*.js\" \"src/**/*.js\"",
     "all": "npm run stylelint && npm run w3c && npm run eslint && node -e \"console.log('npm run all completed')\"",
-    "sass": "sass --watch public/css/main.scss public/css/compiled.css"
+    "sass": "sass --watch src/view/scss/main.scss public/css/compiled.css"
   },
   "author": "Philip Park",
   "license": "ISC",
