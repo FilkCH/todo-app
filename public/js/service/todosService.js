@@ -16,7 +16,9 @@ export const addTodo = async (todoItem) => {
         headers: {
             'Content-Type': 'application/json',
         }
-    })
+    }).then(res => res.json()).then(result =>  {
+        console.log(result.message);
+    });
     loadList();
 }
 

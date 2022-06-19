@@ -43,6 +43,7 @@
     background: var(--gradient-default);
 
     .rotor {
+        display: block;
         word-break: break-all;
         position: absolute;
         z-index: 1;
