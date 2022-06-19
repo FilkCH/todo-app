@@ -3,6 +3,6 @@
 .parcel-cache
 node_modules
 dist
-public/css/compiled.css
-public/css/compiled.css.map
+public/css/styles.css
+public/css/styles.css.map
 src/data/database.db
