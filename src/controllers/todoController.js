@@ -29,12 +29,12 @@ export default class TodoController {
 
     async createTodo(req, res) {
         if (!req.body) {
-            res.status(400).json({ message: 'Missing request data 😠' })
+            res.status(400).json({ message: 'Missing request data 🤔' })
             return;
         }
 
         if (!req.body.title) {
-            res.status(400).json({ message: 'Missing "title" 😠' })
+            res.status(400).json({ message: 'Missing "title" 🤔' })
             return;
         }
 
@@ -44,7 +44,7 @@ export default class TodoController {
         }
 
         if (!req.body.dueDate) {
-            res.status(400).json({ message: 'Missing "dueDate" 😠'});
+            res.status(400).json({ message: 'Missing "dueDate" 🤔'});
             return;
         }
 
@@ -55,7 +55,7 @@ export default class TodoController {
         }
 
         if (!req.body.priority) {
-            res.status(400).json({ message: 'Missing "priority" 😠' })
+            res.status(400).json({ message: 'Missing "priority" 🤔' })
             return;
         }
 
@@ -93,7 +93,7 @@ export default class TodoController {
         res.send(this.constructor.transformDbRecord(host, record[0]))
     }
 
-    patchTodo(req, res) {
+    async patchTodo(req, res) {
 
     }
 

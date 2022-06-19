@@ -3,7 +3,7 @@ const rootClasses = document.documentElement.classList;
 const lightModeClass = "light-mode";
 const darkModeClass = "dark-mode";
 
-const themeHandler = () => {
+export const themeHandler = () => {
   if (Object.values(rootClasses).includes(lightModeClass)) {
     localStorage.setItem(themeStorageKey, darkModeClass);
   } else {
@@ -12,7 +12,7 @@ const themeHandler = () => {
   rootClasses.toggle(lightModeClass);
 };
 
-const setTheme = () => {
+export const setTheme = () => {
   const savedTheme = localStorage.getItem(themeStorageKey);
   const userPrefLight = window.matchMedia("(prefers-color-scheme: light)");
 
@@ -22,5 +22,3 @@ const setTheme = () => {
     }
   }
 };
-
-export { themeHandler, setTheme };

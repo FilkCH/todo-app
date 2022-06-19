@@ -4,7 +4,7 @@
 
 import { addTodo } from "./todos.js";
 import { themeHandler, setTheme } from "./utility/utility-theme-handler.js";
-import toggleVisiblity from "./utility/utility-visibility-toggler.js";
+import { toggleVisiblity } from "./utility/utility-visibility-toggler.js";
 
 
 //
