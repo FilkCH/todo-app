@@ -120,20 +120,17 @@ const resetInputFields = () => {
 // EVENT LISTENERS
 //
 export const initUi = () => {
-  saveButton.addEventListener("click", (e) => {
+  saveButton.addEventListener("click", async (e) => {
     e.preventDefault();
 
-    saveTodo().then(
-      () => {
-        toggleVisiblity(dataPopup, defaultHiddenClass);
-        resetInputFields();
-        loadList();
-      },
-      (err) => {
-        console.log("error upsert 2:", err.message);
-        return Promise.reject(err);
-      }
-    );
+    try {
+      await saveTodo();
+      toggleVisiblity(dataPopup, defaultHiddenClass);
+      resetInputFields();
+      await loadList()
+    } catch (error) {
+      console.log("error upsert:", error.message);
+    }
   });
 
   todoList.addEventListener("click", (e) => {
