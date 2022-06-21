@@ -9,7 +9,7 @@ export default class TodoController {
     const { host } = req.headers;
     const includeDoneTodos = req.query.include_done === "true";
     const dbRecords = await this.#database.find(
-      includeDoneTodos ? {} : { done: false }
+      includeDoneTodos ? { done: true } : { done: false }
     );
     const { sortBy, sortOrder } = req.query;
 
@@ -55,11 +55,9 @@ export default class TodoController {
     const dueDate = new Date(req.body.dueDate);
 
     if (Number.isNaN(dueDate)) {
-      res
-        .status(400)
-        .json({
-          message: 'Property "dueDate" must be a valid RFC 3339 date 😠',
-        });
+      res.status(400).json({
+        message: 'Property "dueDate" must be a valid RFC 3339 date 😠',
+      });
       return;
     }
 

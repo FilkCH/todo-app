@@ -1,4 +1,4 @@
-// TODO: Filter and sorting functions
+// TODO: Filter and sorting functions mit Persistenz
 
 import { deleteTodo, getTodo, loadList } from "../service/todosService.js";
 import { setTheme, themeHandler } from "../view/utility/theme-handler.js";
@@ -23,6 +23,10 @@ const addButton = document.querySelector('[data-action="add-data"]');
 const saveButton = document.querySelector('[data-action="save"]');
 const closeButton = document.querySelector('[data-action="close"]');
 const themeToggler = document.querySelector('[data-action="theme-toggler"]');
+
+const sortBy = document.querySelector("#sortby");
+const sortOrder = document.querySelector("#sortorder");
+const filterDone = document.querySelector("#filterdone");
 
 const titleField = document.querySelector("#title");
 const doneCheckbox = document.querySelector("#done");
@@ -127,6 +131,14 @@ export const initUi = () => {
       await loadList();
     } catch (error) {
       console.log("error upsert:", error.message);
+    }
+  });
+
+  filterDone.addEventListener("change", () => {
+    if (filterDone.checked) {
+      loadList(null, null, true);
+    } else {
+      loadList(null, null, false);
     }
   });
 

@@ -100,16 +100,16 @@
 
     <section data-name="settings-bar" class="settings-bar">
 
-        <label for="sort">Sortieren:
-            <select id="sort">
+        <label for="sortby">Sortieren:
+            <select id="sortby">
                 <option value="title">Titel</option>
                 <option value="dueDate">Fälligkeit</option>
                 <option value="creationDate">Erstellt</option>
                 <option value="priority">Wichtigkeit</option>
                 <option value="done">Erledigt</option>
             </select>
+            <input type="checkbox" id="sortorder" name="sortorder">
         </label>
-
 
         <label for="filterdone">
             <span class="label">Erledigte zeigen:</span>
@@ -129,7 +129,7 @@
     import { loadList } from '/js/service/todosService.js'
 
     initUi();
-    loadList();
+    loadList("dueDate", "desc", false);
 
     // Handlebars.registerHelper("showNiceDate", (dueDate) => {
     //     const locale = navigator.language;
