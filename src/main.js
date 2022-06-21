@@ -20,9 +20,8 @@ app.use(express.static('./public'));
 app.use(express.json());
 
 app.get('/todos', (req, res) => todo.searchTodo(req, res));
-app.post('/todos', (req, res) => todo.createTodo(req, res));
 app.get('/todos/:todoId', (req, res) => todo.getTodo(req, res));
-app.patch('/todos/:todoId', (req, res) => todo.patchTodo(req, res));
+app.post('/todos/:todoId?', (req, res) => todo.saveTodo(req, res));
 app.delete('/todos/:todoId', (req, res) => todo.deleteTodo(req, res));
 
 app.listen(port, () => {

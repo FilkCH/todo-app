@@ -1,4 +1,4 @@
-const themeStorageKey = "theme"
+const themeStorageKey = "theme";
 const rootClasses = document.documentElement.classList;
 const lightModeClass = "light-mode";
 const darkModeClass = "dark-mode";

@@ -1,6 +1,6 @@
 export const listTemplate = `
     {{#items}}
-        <article data-done="{{done}}" data-id="{{id}}" class="todo-item">
+        <article data-done="{{done}}" data-id="{{_id}}" class="todo-item">
             <h2>{{title}}</h2>
             <span class="due-date">{{dueDate}}</span>
             <div data-done="{{done}}" class="status"><input type="checkbox" name="checkbox" disabled="{{done}}"></div>
