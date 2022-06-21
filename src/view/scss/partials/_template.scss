@@ -15,33 +15,26 @@
 body {
     color: var(--color-contrast-primary);
     background: var(--color-bg-primary);
-
     font-family: Nunito, sans-serif;
     transition: all var(--animation-default);
     width: clamp(320px, 80%, 1200px);
     margin: 0 auto;
-    padding: 2vw;
+    padding: 1rem 2vw;
 }
 
 header {
     display: flex;
     width: 100%;
     align-items: center;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-    flex-direction: column;
-
-    @media only screen and (min-width: $mobile-breakpoint) {
-        margin-bottom: 1rem;
-        justify-content: space-between;
-        flex-wrap: nowrap;
-        flex-direction: row;
-    }
+    margin-bottom: 0.5rem;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    flex-direction: row;
 
     .logo {
         user-select: none;
         font-family: Kanit, sans-serif;
-        font-size: 3em;
+        font-size: clamp(2.5em, 4vw, 3em);
         font-weight: 900;
         text-transform: uppercase;
         text-shadow: 5px 5px 10px hsl(0deg 0% 0% / 15%),
@@ -62,13 +55,35 @@ header {
     flex-wrap: wrap;
 }
 
+.settings-bar {
+    padding: 0 .5rem 1.5rem;
+    text-align: right;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+
+    label {
+        margin: .3rem;
+        display: inline-block;
+
+        @media only screen and (min-width: $mobile-breakpoint) {
+            margin: 0 0 0 1rem;
+        }
+
+        select, input {
+            margin-left: .3rem;
+        }
+    }
+}
+
 .no-notes {
     width: 100%;
     display: flex;
     flex-direction: column;
     text-align: center;
     font-size: 2em;
+    border-radius: 1rem;
+    padding: 2rem;
     color: var(--color-accent-muted);
+    box-shadow: var(--shadow-default);
 
     span {
         font-size: 6em;
@@ -79,34 +94,4 @@ footer {
     text-align: center;
     padding: 2rem;
     color: var(--color-accent-muted);
-}
-
-input[type="checkbox"] {
-    appearance: none;
-    background-color: var(--color-bg-primary);
-    box-shadow: inset 7px 7px 10px hsl(0deg 0% 0% / 20%),
-    inset -5px -5px 10px hsl(0deg 0% 100% / 5%);
-    margin: 0;
-    width: 1.75em;
-    height: 1.75em;
-    border-radius: .3em;
-    transform: translateY(-0.075em);
-    display: grid;
-    place-content: center;
-    cursor: pointer;
-    transition: all var(--animation-default);
-
-    &::before {
-        content: "";
-        width: .85em;
-        height: .85em;
-        transform: scale(0);
-        transition: all var(--animation-quick);
-        box-shadow: inset 1em 1em var(--color-accent-quaternary);
-        clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-    }
-
-    &:checked::before {
-        transform: scale(1);
-    }
 }

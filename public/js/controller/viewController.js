@@ -9,7 +9,6 @@ import { request } from "../view/utility/promise-handler.js";
 // VARIABLES
 //
 const dataPopup = '[data-name="data-popup"]';
-const settingsPopup = '[data-name="settings-popup"]';
 const defaultHiddenClass = "hidden";
 
 //
@@ -21,7 +20,6 @@ const dataFormElements = document.querySelector(
 
 const todoList = document.querySelector('[data-element="todolist"]');
 const addButton = document.querySelector('[data-action="add-data"]');
-const settingsButton = document.querySelector('[data-action="settings-data"]');
 const saveButton = document.querySelector('[data-action="save"]');
 const closeButton = document.querySelector('[data-action="close"]');
 const themeToggler = document.querySelector('[data-action="theme-toggler"]');
@@ -59,29 +57,28 @@ const handleTodoList = async (e) => {
 
     const todoItem = await getTodo(id);
 
-    if (!dataFormElements.setid.value) {
+    dataFormElements.title.value = todoItem.title;
+    dataFormElements.duedate.value = new Date(todoItem.dueDate)
+      .toISOString()
+      .slice(0, 10);
+
+    if (updateArray[0].done === true) {
+      dataFormElements.done.checked = true;
     }
 
-    dataFormElements.title.value = todoItem.title;
-    // dataFormElements.duedate.value = new Date(updateArray[0].dueDate).toISOString().slice(0,10);
-    //
-    // if (updateArray[0].done === true) {
-    //     dataFormElements.done.checked = true;
-    // }
-    //
-    // switch (updateArray[0].priority) {
-    //     case '1':
-    //         priorityOne.checked = true;
-    //         break;
-    //     case '2':
-    //         priorityTwo.checked = true;
-    //         break;
-    //     case '3':
-    //         priorityThree.checked = true;
-    //         break;
-    //     default:
-    //         priorityOne.checked = true;
-    // }
+    switch (updateArray[0].priority) {
+      case "1":
+        priorityOne.checked = true;
+        break;
+      case "2":
+        priorityTwo.checked = true;
+        break;
+      case "3":
+        priorityThree.checked = true;
+        break;
+      default:
+        priorityOne.checked = true;
+    }
 
     dataFormElements.setid.value = id;
   }
@@ -127,7 +124,7 @@ export const initUi = () => {
       await saveTodo();
       toggleVisiblity(dataPopup, defaultHiddenClass);
       resetInputFields();
-      await loadList()
+      await loadList();
     } catch (error) {
       console.log("error upsert:", error.message);
     }
@@ -148,10 +145,6 @@ export const initUi = () => {
     resetInputFields();
     toggleVisiblity(dataPopup, defaultHiddenClass);
     titleField.focus();
-  });
-
-  settingsButton.addEventListener("click", () => {
-    toggleVisiblity(settingsPopup, defaultHiddenClass);
   });
 
   themeToggler.addEventListener("click", () => {

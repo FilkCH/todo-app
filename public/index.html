@@ -42,14 +42,6 @@
             </span>
         </button>
 
-        <button data-action="settings-data"
-                data-toggle-visibility="settings-popup"
-                class="btn-round"
-                role="button"
-                title="Sort and filter your todo items">
-            <span class="material-icons md-36">tune</span>
-        </button>
-
         <button data-action="add-data"
                 data-toggle-visibility="data-popup"
                 class="btn-round btn__glow"
@@ -106,16 +98,18 @@
         </article>
     </section>
 
-    <section data-name="settings-popup" class="settings-popup hidden">
+    <section data-name="settings-bar" class="settings-bar">
 
-        <label for="sort">Sortieren:</label>
-        <select id="sort">
-            <option value="title">Titel</option>
-            <option value="dueDate">Fälligkeit</option>
-            <option value="creationDate">Erstellt</option>
-            <option value="priority">Wichtigkeit</option>
-            <option value="done">Erledigt</option>
-        </select>
+        <label for="sort">Sortieren:
+            <select id="sort">
+                <option value="title">Titel</option>
+                <option value="dueDate">Fälligkeit</option>
+                <option value="creationDate">Erstellt</option>
+                <option value="priority">Wichtigkeit</option>
+                <option value="done">Erledigt</option>
+            </select>
+        </label>
+
 
         <label for="filterdone">
             <span class="label">Erledigte zeigen:</span>

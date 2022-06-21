@@ -24,10 +24,6 @@
             color: var(--color-accent-muted);
         }
 
-        input:focus {
-            outline: none;
-        }
-
         .label {
             display: inline-block;
             margin-right: .75rem;
@@ -37,28 +33,6 @@
             @media only screen and (min-width: $mobile-breakpoint) {
                 width: 105px;
             }
-        }
-
-        label[for="title"],
-        label[for="duedate"] {
-            display: block;
-            margin-bottom: 1rem;
-
-            & > span {
-                display: inline-block;
-                vertical-align: middle;
-            }
-        }
-
-        input[type="date"],
-        input[type="text"] {
-            border-radius: .5rem;
-            border: 0;
-            padding: .3rem 1rem;
-            background-color: var(--color-bg-primary);
-            box-shadow: inset 7px 7px 10px hsl(0deg 0% 0% / 20%),
-            inset -5px -5px 10px hsl(0deg 0% 100% / 5%);
-            color: var(--color-contrast-primary);
         }
 
         .buttons {
@@ -86,7 +60,7 @@
         height: 2rem;
         background-color: var(--color-bg-primary);
         box-shadow: inset 7px 7px 10px hsl(0deg 0% 0% / 20%),
-                    inset -5px -5px 10px hsl(0deg 0% 100% / 5%);
+        inset -5px -5px 10px hsl(0deg 0% 100% / 5%);
         border-radius: 2rem;
     }
     &__label {
@@ -108,11 +82,11 @@
         top: 0.2rem;
         left: 0;
         box-shadow: 2px 2px 3px hsl(0deg 0% 0% / 30%),
-                    inset 4px 4px 4px hsl(0deg 0% 100% / 20%);
+        inset 4px 4px 4px hsl(0deg 0% 100% / 20%);
         background: var(--color-accent-secondary);
         border-radius: 50%;
         transition: transform var(--animation-moderate),
-                    background var(--animation-moderate);
+        background var(--animation-moderate);
         transform: translate3d(1rem,0,0);
     }
 
@@ -128,10 +102,5 @@
         background: var(--color-accent-senary);
         transform: translate3d(5.3rem,0,0);
     }
-    input[type="radio"] {
-        &:not(:checked),
-        &:checked {
-            display: none;
-        }
-    }
+
 }

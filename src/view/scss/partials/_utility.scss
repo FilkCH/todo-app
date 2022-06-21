@@ -1,4 +1,6 @@
 :root {
+    --small-border-radius: .5rem;
+
     // Animations
     --animation-default:    .75s cubic-bezier(1, 0, 0, 1);
     --animation-quick:      .2s cubic-bezier(1, 0, 0, 1);
@@ -25,6 +27,9 @@
 
     --shadow-active:        3px 3px 3px hsl(0deg 0% 100% / 3%),
                             -5px -5px 10px hsl(0deg 0% 0% / 15%);
+
+    --shadow-input:         inset 7px 7px 10px hsl(0deg 0% 0% / 20%),
+                            inset -5px -5px 10px hsl(0deg 0% 100% / 5%);
 }
 
 .light-mode {

@@ -25,9 +25,7 @@
         transform: translateY(-.2em);
     }
 
-    &:active,
-    &:focus,
-    &:focus-within {
+    &:active {
         background: var(--gradient-active);
         box-shadow: var(--shadow-active);
         transform: translateY(0);
