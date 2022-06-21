@@ -1,14 +1,9 @@
 // TODO: Filter and sorting functions
 
 import { deleteTodo, getTodo, loadList } from "../service/todosService.js";
-
-import {
-  setTheme,
-  themeHandler,
-} from "../view/utility/utility-theme-handler.js";
-
-import { toggleVisiblity } from "../view/utility/utility-visibility-toggler.js";
-import { request } from "../view/utility/utility-promise-handler.js";
+import { setTheme, themeHandler } from "../view/utility/theme-handler.js";
+import { toggleVisiblity } from "../view/utility/visibility-toggler.js";
+import { request } from "../view/utility/promise-handler.js";
 
 //
 // VARIABLES
