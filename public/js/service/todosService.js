@@ -2,7 +2,7 @@
 import Mustache from "https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.2.0/mustache.min.js";
 import { listTemplate, emptyListTemplate } from "../view/listView.js";
 
-// Get all todos and parse them
+// Get many items
 export const getTodos = async (sortBy, order, filter) => {
   const todos = await fetch(
     `/todos?sortBy=${sortBy || ""}&sortOrder=${order || ""}&${
@@ -12,6 +12,21 @@ export const getTodos = async (sortBy, order, filter) => {
   return todos.json();
 };
 
+// Get single item
+export const getTodo = (todoId) =>
+  fetch(`/todos/${todoId}`).then((data) => data.json());
+
+// Delete single item
+export const deleteTodo = async (todoId) => {
+  await fetch(`/todos/${todoId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+// Render items into template
 const updateList = (todos) => {
   const listNode = document.querySelector("#todo-item-template");
   listNode.innerHTML = Mustache.render(
@@ -20,6 +35,7 @@ const updateList = (todos) => {
   );
 };
 
+// Call data and rendering
 export const loadList = async (sortBy, order, filter) => {
   try {
     const todos = await getTodos(sortBy, order, filter);
@@ -28,18 +44,4 @@ export const loadList = async (sortBy, order, filter) => {
     console.log(error);
     await updateList([]);
   }
-};
-
-// Get a single item
-export const getTodo = (todoId) =>
-  fetch(`/todos/${todoId}`).then((data) => data.json());
-
-// Delete a single item
-export const deleteTodo = async (todoId) => {
-  await fetch(`/todos/${todoId}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
 };
