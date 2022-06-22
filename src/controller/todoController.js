@@ -5,7 +5,7 @@ export default class TodoController {
     this.#database = database;
   }
 
-  async searchTodo(req, res) {
+  async getAllTodos(req, res) {
     const { host } = req.headers;
     const includeDoneTodos = req.query.include_done === "true";
     const dbRecords = await this.#database.find(
@@ -32,6 +32,8 @@ export default class TodoController {
   }
 
   async saveTodo(req, res) {
+    const { _id, dueDate } = req.body;
+
     if (!req.body) {
       res.status(400).json({ message: "Missing request data 🤔" });
       return;
@@ -52,8 +54,6 @@ export default class TodoController {
       return;
     }
 
-    const dueDate = new Date(req.body.dueDate);
-
     if (Number.isNaN(dueDate)) {
       res.status(400).json({
         message: 'Property "dueDate" must be a valid RFC 3339 date 😠',
@@ -72,7 +72,9 @@ export default class TodoController {
         .json({ message: 'Property "priority" must be a number 😠' });
       return;
     }
-    const { _id } = req.body;
+
+    const date = new Date(dueDate);
+    const dateInMs = date.getTime();
 
     await this.#database
       .update(
@@ -81,7 +83,7 @@ export default class TodoController {
         },
         {
           creationDate: Date.now(),
-          dueDate: req.body.priority.dueDate?.getTime() || Date.now(),
+          dueDate: dateInMs || Date.now(),
           title: req.body.title,
           done: false,
           priority: req.body.priority,

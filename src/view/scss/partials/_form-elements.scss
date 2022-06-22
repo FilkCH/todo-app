@@ -17,7 +17,7 @@ input[type="checkbox"] {
     cursor: pointer;
     transition: all var(--animation-default);
 
-    &::before {
+    &.tick::before {
         content: "";
         width: .85em;
         height: .85em;
@@ -26,9 +26,21 @@ input[type="checkbox"] {
         box-shadow: inset 1em 1em var(--color-accent-quaternary);
         clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
     }
-
-    &:checked::before {
+    &.tick:checked::before {
         transform: scale(1);
+    }
+
+    &.arrow::before {
+        content: "";
+        width: 1em;
+        height: 1em;
+        transform: rotateZ(0);
+        transition: all var(--animation-moderate);
+        box-shadow: inset 1em 1em var(--color-accent-muted);
+        clip-path: polygon(63.25% 13.5%, 63.05% 58%, 82.85% 58.25%, 51.5% 90%, 20.4% 58%, 39.55% 58.25%, 39.75% 13.5%);
+    }
+    &.arrow:checked::before {
+        transform: rotateZ(180deg);
     }
 }
 
@@ -66,7 +78,7 @@ label[for=filterdone] > span {
 }
 
 select {
-    color: var(--color-contrast-primary);
+    color: var(--color-accent-muted);
     border: 0;
     border-radius: var(--small-border-radius);
     background-color: var(--color-bg-primary);

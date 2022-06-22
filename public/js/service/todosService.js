@@ -27,7 +27,6 @@ export const loadList = async (sortBy, order, filter) => {
   } catch (error) {
     console.log(error);
     await updateList([]);
-    //await showError("Something went wrong while updating the list")
   }
 };
 
@@ -43,5 +42,4 @@ export const deleteTodo = async (todoId) => {
       "Content-Type": "application/json",
     },
   });
-  loadList();
 };

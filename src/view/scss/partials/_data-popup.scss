@@ -19,6 +19,7 @@
         border-radius: 1em;
         box-shadow: var(--shadow-default);
         font-size: 1.2em;
+        width: clamp(330px, 80vw, 800px);
 
         ::placeholder {
             color: var(--color-accent-muted);
@@ -32,11 +33,27 @@
 
             @media only screen and (min-width: $mobile-breakpoint) {
                 width: 105px;
+                align-items: center;
+            }
+        }
+
+        label[for=title] {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+
+            @media only screen and (min-width: $mobile-breakpoint) {
+                flex-direction: row;
+            }
+
+            input {
+                flex-grow: 1;
             }
         }
 
         .buttons {
             display: flex;
+            justify-content: end;
 
             button {
                 margin: .5rem;

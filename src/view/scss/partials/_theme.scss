@@ -1,7 +1,7 @@
 :root {
     --color-bg-primary:         hsl(250deg 30% 15%);
     --color-contrast-primary:   hsl(50deg 100% 80%);
-    --color-accent-muted:       hsl(250deg 5% 45%);
+    --color-accent-muted:       hsl(250deg 5% 55%);
     --color-accent-primary:     hsl(190deg 100% 40%);
     --color-accent-secondary:   hsl(240deg 50% 60%);
     --color-accent-tertiary:    hsl(340deg 55% 50%);
@@ -13,4 +13,5 @@
 .light-mode {
     --color-bg-primary:         hsl(50deg 100% 80%);
     --color-contrast-primary:   hsl(250deg 30% 15%);
+    --color-accent-muted:       hsl(50deg 20% 35%);
 }

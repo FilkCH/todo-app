@@ -6,8 +6,8 @@
                 inset 0 0 1vw hsl(0deg 0% 0% / 35%);
 
     &.light-mode {
-        box-shadow: inset 0 0 5vw hsl(32deg 49% 54% / 65%),
-        inset 0 0 1vw hsl(32deg 49% 54% / 45%);
+        box-shadow: inset 0 0 5vw hsl(30deg 50% 55% / 65%),
+        inset 0 0 1vw hsl(30deg 50% 55% / 45%);
     }
 }
 
@@ -58,11 +58,12 @@ header {
 .settings-bar {
     padding: 0 .5rem 1.5rem;
     text-align: right;
-    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    font-size: clamp(.8rem, 2vw, 1.2rem);
 
     label {
         margin: .3rem;
         display: inline-block;
+        color: var(--color-accent-muted);
 
         @media only screen and (min-width: $mobile-breakpoint) {
             margin: 0 0 0 1rem;
@@ -71,6 +72,11 @@ header {
         select, input {
             margin-left: .3rem;
         }
+    }
+
+    span {
+        display: inline-block;
+        vertical-align: middle;
     }
 }
 

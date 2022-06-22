@@ -1,49 +1,48 @@
-// TODO: Filter and sorting functions mit Persistenz
+// TODO: Edit an item fill out forms
+// TODO: Dates
+// TODO: Error handling
+// TODO: Mustache helpers
+// TODO: Async actions in event listeners
+// TODO: Sorting is buggy (a-z)
+// TODO: Dummy Todos rausnehmen
 
+// Imports
 import { deleteTodo, getTodo, loadList } from "../service/todosService.js";
 import { setTheme, themeHandler } from "../view/utility/theme-handler.js";
 import { toggleVisiblity } from "../view/utility/visibility-toggler.js";
+import { resetInputFields } from "../view/utility/reset-input.js";
 import { request } from "../view/utility/promise-handler.js";
+import {
+  addButton,
+  closeButton,
+  dataFormElements,
+  filterDone,
+  priorityOne,
+  priorityThree,
+  priorityTwo,
+  saveButton,
+  sortBy,
+  sortOrder,
+  themeToggler,
+  titleField,
+  todoList,
+} from "../view/utility/selectors.js";
 
-//
-// VARIABLES
-//
+// Set utility variables
 const dataPopup = '[data-name="data-popup"]';
 const defaultHiddenClass = "hidden";
 
-//
-// SELECTORS
-//
-const dataFormElements = document.querySelector(
-  '[data-element="form"]'
-).elements;
+// Default fetch data settings
+let sortByState = "dueDate";
+let sortOrderState = "desc";
+let filterDoneState = false;
 
-const todoList = document.querySelector('[data-element="todolist"]');
-const addButton = document.querySelector('[data-action="add-data"]');
-const saveButton = document.querySelector('[data-action="save"]');
-const closeButton = document.querySelector('[data-action="close"]');
-const themeToggler = document.querySelector('[data-action="theme-toggler"]');
-
-const sortBy = document.querySelector("#sortby");
-const sortOrder = document.querySelector("#sortorder");
-const filterDone = document.querySelector("#filterdone");
-
-const titleField = document.querySelector("#title");
-const doneCheckbox = document.querySelector("#done");
-const priorityOne = document.querySelector("#one");
-const priorityTwo = document.querySelector("#two");
-const priorityThree = document.querySelector("#three");
-
-//
-// FUNCTIONS
-//
-
-// Handle list items by event type
-const handleTodoList = async (e) => {
+// Handle list items by button clicks
+const listViewActions = async (e) => {
   const item = e.target.closest("article");
-  const id = item.dataset.id;
+  const { id } = item.dataset;
 
-  // Delete an item
+  // CLICK DELETE: Delete an item
   if (
     e.target.closest("div") &&
     e.target.closest("div").matches('[data-action="delete"]')
@@ -51,7 +50,7 @@ const handleTodoList = async (e) => {
     deleteTodo(id);
   }
 
-  //Edit an item
+  // CLICK EDIT: Load item data into inputs
   if (
     e.target.closest("div") &&
     e.target.closest("div").matches('[data-action="edit"]')
@@ -66,11 +65,11 @@ const handleTodoList = async (e) => {
       .toISOString()
       .slice(0, 10);
 
-    if (updateArray[0].done === true) {
+    if (todoItem.done === true) {
       dataFormElements.done.checked = true;
     }
 
-    switch (updateArray[0].priority) {
+    switch (todoItem.priority) {
       case "1":
         priorityOne.checked = true;
         break;
@@ -81,18 +80,19 @@ const handleTodoList = async (e) => {
         priorityThree.checked = true;
         break;
       default:
-        priorityOne.checked = true;
+        priorityThree.checked = true;
     }
 
     dataFormElements.setid.value = id;
   }
 };
 
-// Save or update new item
-const saveTodo = () => {
+// Save item data (will be either post or put in backend, neDB upsert)
+const saveTodo = (method) => {
   const todoItem = {
     title: dataFormElements.title.value,
-    dueDate: "2022-07-29T22:00:00.000Z",
+    dueDate: dataFormElements.duedate.value,
+    done: dataFormElements.done.checked,
     priority: Number(dataFormElements.priority.value),
   };
 
@@ -100,7 +100,7 @@ const saveTodo = () => {
     todoItem._id = dataFormElements.setid.value;
   }
   return request("/todos", {
-    method: "POST",
+    method: method || "POST",
     body: JSON.stringify(todoItem),
     headers: {
       "Content-Type": "application/json",
@@ -108,19 +108,7 @@ const saveTodo = () => {
   });
 };
 
-// Reset all inputs fields
-const resetInputFields = () => {
-  dataFormElements.setid.value = "";
-  dataFormElements.title.value = "";
-  dataFormElements.duedate.value = new Date().toISOString().slice(0, 10);
-  doneCheckbox.checked = false;
-  priorityThree.checked = true;
-};
-
-//
-// EVENT LISTENERS
-//
-export const initUi = () => {
+export const initEventListeners = () => {
   saveButton.addEventListener("click", async (e) => {
     e.preventDefault();
 
@@ -128,7 +116,7 @@ export const initUi = () => {
       await saveTodo();
       toggleVisiblity(dataPopup, defaultHiddenClass);
       resetInputFields();
-      await loadList();
+      await loadList(sortByState, sortOrderState, filterDoneState);
     } catch (error) {
       console.log("error upsert:", error.message);
     }
@@ -136,15 +124,34 @@ export const initUi = () => {
 
   filterDone.addEventListener("change", () => {
     if (filterDone.checked) {
-      loadList(null, null, true);
+      filterDone.checked = true;
+      filterDoneState = true;
     } else {
-      loadList(null, null, false);
+      filterDone.checked = false;
+      filterDoneState = false;
     }
+    loadList(sortByState, sortOrderState, filterDoneState);
+  });
+
+  sortBy.addEventListener("change", () => {
+    sortByState = sortBy.value;
+    loadList(sortByState, sortOrderState, filterDoneState);
+  });
+
+  sortOrder.addEventListener("change", () => {
+    if (sortOrder.checked) {
+      sortOrder.checked = true;
+      sortOrderState = "asc";
+    } else {
+      sortOrder.checked = false;
+      sortOrderState = "desc";
+    }
+    loadList(sortByState, sortOrderState, filterDoneState);
   });
 
   todoList.addEventListener("click", (e) => {
-    handleTodoList(e);
-    loadList();
+    listViewActions(e);
+    loadList(sortByState, sortOrderState, filterDoneState);
   });
 
   closeButton.addEventListener("click", (e) => {

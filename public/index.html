@@ -102,18 +102,17 @@
 
         <label for="sortby">Sortieren:
             <select id="sortby">
-                <option value="title">Titel</option>
                 <option value="dueDate">Fälligkeit</option>
+                <option value="title">Titel</option>
                 <option value="creationDate">Erstellt</option>
                 <option value="priority">Wichtigkeit</option>
-                <option value="done">Erledigt</option>
             </select>
-            <input type="checkbox" id="sortorder" name="sortorder">
+            <span><input class="arrow" type="checkbox" id="sortorder" name="sortorder" title="Sortierungs-Richtung verändern."></span>
         </label>
 
         <label for="filterdone">
-            <span class="label">Erledigte zeigen:</span>
-            <span><input type="checkbox" id="filterdone" name="filterdone"></span>
+            <span class="label">Nur Erledigte:</span>
+            <span><input class="tick" type="checkbox" id="filterdone" name="filterdone"></span>
         </label>
     </section>
 
@@ -125,10 +124,10 @@
 </footer>
 
 <script type="module" defer>
-    import { initUi } from '/js/controller/viewController.js'
     import { loadList } from '/js/service/todosService.js'
+    import {initEventListeners} from "./js/controller/viewController.js";
 
-    initUi();
+    initEventListeners();
     loadList("dueDate", "desc", false);
 
     // Handlebars.registerHelper("showNiceDate", (dueDate) => {
