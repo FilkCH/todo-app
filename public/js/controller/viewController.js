@@ -78,13 +78,13 @@ const listViewActions = async (e) => {
     }
 
     switch (todoItem.priority) {
-      case "1":
+      case 1:
         priorityOne.checked = true;
         break;
-      case "2":
+      case 2:
         priorityTwo.checked = true;
         break;
-      case "3":
+      case 3:
         priorityThree.checked = true;
         break;
       default:
