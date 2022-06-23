@@ -1,4 +1,5 @@
 import { dataFormElements, doneCheckbox, priorityThree } from "./selectors.js";
+import { errorClassToggler } from "./error-handler.js";
 
 export const resetInputFields = () => {
   dataFormElements.setid.value = "";
@@ -6,4 +7,5 @@ export const resetInputFields = () => {
   dataFormElements.duedate.value = new Date().toISOString().slice(0, 10);
   doneCheckbox.checked = false;
   priorityThree.checked = true;
+  errorClassToggler(false);
 };

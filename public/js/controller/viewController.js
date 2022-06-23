@@ -1,7 +1,6 @@
 // TODO: Edit an item fill out forms
 // TODO: Dates
 // TODO: Error handling
-// TODO: Mustache helpers
 // TODO: Async actions in event listeners
 // TODO: Sorting is buggy (a-z)
 // TODO: Dummy Todos rausnehmen
@@ -12,6 +11,7 @@ import { setTheme, themeHandler } from "../view/utility/theme-handler.js";
 import { toggleVisiblity } from "../view/utility/visibility-toggler.js";
 import { resetInputFields } from "../view/utility/reset-input.js";
 import { request } from "../view/utility/promise-handler.js";
+import { errorClassToggler } from "../view/utility/error-handler.js";
 import {
   addButton,
   closeButton,
@@ -118,7 +118,10 @@ export const initEventListeners = () => {
       resetInputFields();
       await loadList(sortByState, sortOrderState, filterDoneState);
     } catch (error) {
-      console.log("error upsert:", error.message);
+      // console.log("error upsert:", error.message);
+      if (error.code === 102) {
+        errorClassToggler(true);
+      }
     }
   });
 

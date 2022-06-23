@@ -35,41 +35,44 @@ export default class TodoController {
     const { _id, dueDate } = req.body;
 
     if (!req.body) {
-      res.status(400).json({ message: "Missing request data 🤔" });
+      res.status(400).json({ message: "Missing request data 🤔", code: 101 });
       return;
     }
 
     if (!req.body.title) {
-      res.status(400).json({ message: 'Missing "title" 🤔' });
+      res.status(400).json({ message: "Missing title 🤔", code: 102 });
       return;
     }
 
     if (typeof req.body.title !== "string") {
-      res.status(400).json({ message: 'Property "title" must be a string 😠' });
+      res
+        .status(400)
+        .json({ message: "Property title must be a string 😠", code: 103 });
       return;
     }
 
     if (!req.body.dueDate) {
-      res.status(400).json({ message: 'Missing "dueDate" 🤔' });
+      res.status(400).json({ message: "Missing dueDate 🤔", code: 104 });
       return;
     }
 
     if (Number.isNaN(dueDate)) {
       res.status(400).json({
-        message: 'Property "dueDate" must be a valid RFC 3339 date 😠',
+        message: "Property dueDate must be a valid RFC 3339 date 😠",
+        code: 105,
       });
       return;
     }
 
     if (!req.body.priority) {
-      res.status(400).json({ message: 'Missing "priority" 🤔' });
+      res.status(400).json({ message: "Missing priority 🤔", code: 106 });
       return;
     }
 
     if (typeof req.body.priority !== "number") {
       res
         .status(400)
-        .json({ message: 'Property "priority" must be a number 😠' });
+        .json({ message: "Property priority must be a number 😠", code: 107 });
       return;
     }
 

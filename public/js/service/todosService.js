@@ -9,6 +9,9 @@ export const getTodos = async (sortBy, order, filter) => {
       filter ? "include_done=true" : ""
     }`
   );
+
+  // TODO: dates in menschlich lesbares format wandeln
+
   return todos.json();
 };
 
@@ -28,8 +31,6 @@ export const deleteTodo = async (todoId) => {
 
 // Render items into template
 const updateList = (todos) => {
-  // TODO: dates in menschlich lesbares format wandeln
-
   const listNode = document.querySelector("#todo-item-template");
   listNode.innerHTML = Mustache.render(
     todos.total ? listTemplate : emptyListTemplate,
@@ -39,8 +40,29 @@ const updateList = (todos) => {
 
 // Call data and rendering
 export const loadList = async (sortBy, order, filter) => {
+  const getReadableDate = (todo) => {
+    const locale = navigator.language;
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    const date = new Date(todo.dueDate).toLocaleDateString(locale);
+    if (date === new Date().toLocaleDateString(locale)) {
+      return "Heute fällig.";
+    }
+    if (date === new Date(tomorrow).toLocaleDateString(locale)) {
+      return "Morgen fällig.";
+    }
+    return `Fällig am ${date}`;
+  };
+
   try {
     const todos = await getTodos(sortBy, order, filter);
+    todos.items.map((todo) => {
+      const todoItem = todo;
+      todoItem.dueDate = getReadableDate(todo);
+      return todoItem;
+    });
     await updateList(todos);
   } catch (error) {
     console.log(error);
