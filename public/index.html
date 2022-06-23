@@ -3,8 +3,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="color-scheme" content="dark light">
 
@@ -34,7 +33,6 @@
     <div class="button-box">
         <button data-action="theme-toggler"
                 class="btn-round btn--theme"
-                role="button"
                 title="Switch between dark and light mode">
             <span class="rotor">
                 <span class="material-icons md-36">nightlight_round</span>
@@ -45,7 +43,6 @@
         <button data-action="add-data"
                 data-toggle-visibility="data-popup"
                 class="btn-round btn__glow"
-                role="button"
                 title="Add a new todo item">
             <span class="material-icons md-36">add</span>
         </button>
@@ -62,12 +59,10 @@
                 </label>
 
                 <label for="duedate">
-                    <span class="label">Fällig am</span>
-                    <input type="date" id="duedate" name="duedate">
+                    <span class="label">Fällig am</span><input type="date" id="duedate" name="duedate">
                 </label>
 
-                <span class="label">Priorität</span>
-                <div class="priority-switch">
+                <span class="label">Priorität</span><div class="priority-switch">
                     <input name="priority" value="3" id="three" type="radio" checked>
                     <label for="three" class="priority-switch__label">3</label>
 
@@ -80,9 +75,8 @@
                     <i class="priority-switch__indicator"></i>
                 </div>
 
-                <label for="duedate">
-                    <span class="label">Erledigt</span>
-                    <span><input type="checkbox" id="done" class="tick" name="done"></span>
+                <label for="done">
+                    <span class="label">Erledigt</span><span><input type="checkbox" id="done" class="tick" name="done"></span>
                 </label>
 
                 <div class="buttons">
@@ -106,8 +100,9 @@
                 <option value="creationDate">Erstellt</option>
                 <option value="priority">Wichtigkeit</option>
             </select>
-            <span><input class="arrow" type="checkbox" id="sortorder" name="sortorder" title="Sortierungs-Richtung verändern."></span>
         </label>
+
+        <span><input class="arrow" type="checkbox" id="sortorder" name="sortorder" title="Sortierungs-Richtung verändern."></span>
 
         <label for="filterdone">
             <span class="label">Nur Erledigte:</span>
@@ -122,7 +117,7 @@
     &copy; 2022 - Philip Park
 </footer>
 
-<script type="module" defer>
+<script type="module">
     import { loadList } from '/js/service/todosService.js'
     import {initEventListeners} from "./js/controller/viewController.js";
 

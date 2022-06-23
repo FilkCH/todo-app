@@ -62,7 +62,6 @@ export const loadList = async (sortBy, order, filter) => {
     });
     await updateList(todos);
   } catch (error) {
-    console.log(error);
     await updateList([]);
   }
 };

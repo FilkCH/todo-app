@@ -15,8 +15,7 @@
 
     article {
         background-color: var(--color-bg-primary);
-        padding: 2em;
-        backdrop-filter: blur(50px);
+        padding: clamp(1.5em, 5vw, 3em);
         border-radius: 1em;
         box-shadow: var(--shadow-default);
         font-size: 1.2em;
@@ -28,12 +27,11 @@
 
         .label {
             display: inline-block;
-            margin-right: .75rem;
             color: var(--color-accent-muted);
             width: 100%;
 
             @media only screen and (min-width: $mobile-breakpoint) {
-                width: 105px;
+                width: 115px;
                 align-items: center;
             }
         }
@@ -49,6 +47,8 @@
 
             input {
                 flex-grow: 1;
+                max-width: 100%;
+                align-self: start;
             }
         }
 
@@ -73,7 +73,6 @@
         content: "";
         position: absolute;
         left: 0;
-        z-index: -1;
         width: 8rem;
         height: 2rem;
         background-color: var(--color-bg-primary);
@@ -85,6 +84,7 @@
         display: inline-block;
         padding: .3rem .6rem;
         text-align: center;
+        position: relative;
         cursor: pointer;
         font-size: 1rem;
         transition: color 200ms ease-out;

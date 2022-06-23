@@ -32,7 +32,6 @@
         grid-template-areas: "checkbox title title title title title"
                              "priority due due due edit delete";
     }
-
     h2 {
         grid-area: title;
         align-self: center;
@@ -41,6 +40,7 @@
         grid-area: checkbox;
         place-self: center;
     }
+    /* stylelint-disable-next-line no-duplicate-selectors */
     .priority {
         grid-area: priority;
         place-self: center;
