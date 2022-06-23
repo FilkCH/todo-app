@@ -1,6 +1,6 @@
 {
   "name": "todo-app",
-  "description": "A lightweight JS based ToDo app with basic CRUD and sorting operations. Runs on express, neDB and a REST API. This is the first project exam of the CAS FEE 2022 at OST, supervised by Michael Gfeller.",
+  "description": "A lightweight vanilla JS based ToDo app with basic CRUD and sorting operations. Runs on express and neDB with a REST API.",
   "version": "1.0.0",
   "main": "src/backend.js",
   "type": "module",

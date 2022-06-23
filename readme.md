@@ -1,4 +1,4 @@
-A lightweight vanilla JS based ToDo app with basic CRUD and sorting operations. Runs on express with a REST API. This is the first project exam of the CAS FEE 2022 at OST academy, supervised by Michael Gfeller.
+A lightweight vanilla JS based ToDo app with basic CRUD and sorting operations. Runs on express and neDB with a REST API.
 
 The database will be filled with dummy data if started with 0 entries. To avoid this disable line 10-15 in src/main.js.
 
