@@ -21,8 +21,10 @@ import {
 } from "../view/utility/selectors.js";
 
 // TODO: Edit an item fill out forms
+// TODO: Save done status at creation
 // TODO: Dummy Todos rausnehmen
 // TODO: Firefox styles
+// TODO: Title input offset on mobile
 
 // Set utility variables
 const dataPopup = '[data-name="data-popup"]';
@@ -113,6 +115,7 @@ const saveTodo = (method) => {
   });
 };
 
+// Setting up the event listeners
 export const initEventListeners = () => {
   saveButton.addEventListener("click", async (e) => {
     e.preventDefault();
@@ -177,7 +180,7 @@ export const initEventListeners = () => {
   });
 
   todoList.addEventListener("click", async (e) => {
-    listViewActions(e);
+    await listViewActions(e);
 
     try {
       await loadList(sortByState, sortOrderState, filterDoneState);
