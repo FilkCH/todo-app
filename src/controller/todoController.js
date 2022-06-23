@@ -87,9 +87,9 @@ export default class TodoController {
         {
           creationDate: Date.now(),
           dueDate: dateInMs || Date.now(),
-          title: req.body.title,
-          done: false,
-          priority: req.body.priority,
+          title: req.body.title || "Ohne Titel",
+          done: req.body.done || false,
+          priority: req.body.priority || 3,
         },
         {
           upsert: true,
