@@ -24,7 +24,7 @@ app.use(express.json());
 // Initialize an instance of the REST API
 const todo = new TodoController(db);
 
-// Set routes and parameters
+// Set routes and parameters for the API
 app.get("/todos", (req, res) => todo.getAllTodos(req, res));
 app.get("/todos/:todoId", (req, res) => todo.getTodo(req, res));
 app.post("/todos/:todoId?", (req, res) => todo.saveTodo(req, res));
