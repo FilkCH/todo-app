@@ -1,36 +1,36 @@
-// TODO: Edit an item fill out forms
-// TODO: Dates
-// TODO: Error handling
-// TODO: Async actions in event listeners
-// TODO: Sorting is buggy (a-z)
-// TODO: Dummy Todos rausnehmen
-
-// Imports
 import { deleteTodo, getTodo, loadList } from "../service/todosService.js";
 import { setTheme, themeHandler } from "../view/utility/theme-handler.js";
 import { toggleVisiblity } from "../view/utility/visibility-toggler.js";
+import { errorClassToggler } from "../view/utility/error-handler.js";
 import { resetInputFields } from "../view/utility/reset-input.js";
 import { request } from "../view/utility/promise-handler.js";
-import { errorClassToggler } from "../view/utility/error-handler.js";
 import {
-  addButton,
-  closeButton,
   dataFormElements,
-  filterDone,
-  priorityOne,
   priorityThree,
+  themeToggler,
+  priorityOne,
+  closeButton,
   priorityTwo,
   saveButton,
-  sortBy,
-  sortOrder,
-  themeToggler,
+  filterDone,
   titleField,
+  sortOrder,
+  addButton,
   todoList,
+  sortBy,
 } from "../view/utility/selectors.js";
+
+// TODO: Edit an item fill out forms
+// TODO: Dummy Todos rausnehmen
+// TODO: Firefox styles
 
 // Set utility variables
 const dataPopup = '[data-name="data-popup"]';
 const defaultHiddenClass = "hidden";
+const loadlistError = "Todo items could not be loaded. Unknown backend error.";
+const deleteError = "Todo item could not be deleted. Unknown backend error.";
+const saveError = "Todo item could not be saved. Unknown backend error.";
+let errorMessage;
 
 // Default fetch data settings
 let sortByState = "dueDate";
@@ -47,7 +47,12 @@ const listViewActions = async (e) => {
     e.target.closest("div") &&
     e.target.closest("div").matches('[data-action="delete"]')
   ) {
-    deleteTodo(id);
+    try {
+      await deleteTodo(id);
+    } catch (error) {
+      errorMessage = error.message || deleteError;
+      alert(errorMessage);
+    }
   }
 
   // CLICK EDIT: Load item data into inputs
@@ -118,14 +123,16 @@ export const initEventListeners = () => {
       resetInputFields();
       await loadList(sortByState, sortOrderState, filterDoneState);
     } catch (error) {
-      // console.log("error upsert:", error.message);
       if (error.code === 102) {
         errorClassToggler(true);
+      } else {
+        errorMessage = error.message || saveError;
+        alert(errorMessage);
       }
     }
   });
 
-  filterDone.addEventListener("change", () => {
+  filterDone.addEventListener("change", async () => {
     if (filterDone.checked) {
       filterDone.checked = true;
       filterDoneState = true;
@@ -133,15 +140,26 @@ export const initEventListeners = () => {
       filterDone.checked = false;
       filterDoneState = false;
     }
-    loadList(sortByState, sortOrderState, filterDoneState);
+
+    try {
+      await loadList(sortByState, sortOrderState, filterDoneState);
+    } catch (error) {
+      errorMessage = error.message || loadlistError;
+      alert(errorMessage);
+    }
   });
 
-  sortBy.addEventListener("change", () => {
+  sortBy.addEventListener("change", async () => {
     sortByState = sortBy.value;
-    loadList(sortByState, sortOrderState, filterDoneState);
+    try {
+      await loadList(sortByState, sortOrderState, filterDoneState);
+    } catch (error) {
+      errorMessage = error.message || loadlistError;
+      alert(errorMessage);
+    }
   });
 
-  sortOrder.addEventListener("change", () => {
+  sortOrder.addEventListener("change", async () => {
     if (sortOrder.checked) {
       sortOrder.checked = true;
       sortOrderState = "asc";
@@ -149,12 +167,24 @@ export const initEventListeners = () => {
       sortOrder.checked = false;
       sortOrderState = "desc";
     }
-    loadList(sortByState, sortOrderState, filterDoneState);
+
+    try {
+      await loadList(sortByState, sortOrderState, filterDoneState);
+    } catch (error) {
+      errorMessage = error.message || loadlistError;
+      alert(errorMessage);
+    }
   });
 
-  todoList.addEventListener("click", (e) => {
+  todoList.addEventListener("click", async (e) => {
     listViewActions(e);
-    loadList(sortByState, sortOrderState, filterDoneState);
+
+    try {
+      await loadList(sortByState, sortOrderState, filterDoneState);
+    } catch (error) {
+      errorMessage = error.message || loadlistError;
+      alert(errorMessage);
+    }
   });
 
   closeButton.addEventListener("click", (e) => {

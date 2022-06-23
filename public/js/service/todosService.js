@@ -9,9 +9,6 @@ export const getTodos = async (sortBy, order, filter) => {
       filter ? "include_done=true" : ""
     }`
   );
-
-  // TODO: dates in menschlich lesbares format wandeln
-
   return todos.json();
 };
 
