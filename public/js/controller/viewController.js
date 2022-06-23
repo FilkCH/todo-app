@@ -115,7 +115,11 @@ export const initEventListeners = () => {
     e.preventDefault();
 
     try {
-      await saveTodo();
+      if (dataFormElements.setid.value) {
+        await saveTodo("PUT");
+      } else {
+        await saveTodo();
+      }
       toggleVisiblity(dataPopup, defaultHiddenClass);
       resetInputFields();
       await loadList(sortByState, sortOrderState, filterDoneState);
