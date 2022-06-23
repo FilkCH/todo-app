@@ -25,6 +25,7 @@ import {
 // TODO: Dummy Todos rausnehmen
 // TODO: Firefox styles
 // TODO: Title input offset on mobile
+// TODO: Work through linters and validators
 
 // Set utility variables
 const dataPopup = '[data-name="data-popup"]';
