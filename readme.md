@@ -6,14 +6,18 @@ The database will be filled with dummy data if started with 0 entries. To avoid 
 
 ## Available commands:
 
-| Command           | Description                                   |
-|-------------------|-----------------------------------------------|
-| `npm run stylelint` | Test CSS files for conformity.                |
-| `npm run w3c`      | Test HTML files for conformity.               |
-| `npm run lint`     | Test JS files for conformity.                 |
-| `npm run all`      | Runs all of the above mentioned tests.        |
-| `npm run sass`      | Compile the CSS and listen to changes.        |
-| `npm run start`     | Start the web server at http://localhost:1337 |
+#### `` 
+
+| Command              | Description                                                              |
+|----------------------|--------------------------------------------------------------------------|
+| `npm run start`      | **Everything you need to start the web server at http://localhost:1337** |
+| `npm run stylelint`  | Test CSS files for conformity.                                           |
+| `npm run w3c`        | Test HTML files for conformity.                                          |
+| `npm run eslint`     | Test JS files for conformity.                                            |
+| `npm run alltests`   | Runs all of the above mentioned tests.                                   |
+| `npm run watchcss`   | Compile the CSS and listen to changes.                                   |
+| `npm run compilecss` | Compile the SCSS files into CSS.                                         |
+| `npm run serve`      | Only start the web server at http://localhost:1337                       |
 
 ## Screenshots:
 Main View:

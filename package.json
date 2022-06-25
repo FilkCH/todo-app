@@ -5,12 +5,14 @@
   "main": "src/main.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon src/main.js",
     "stylelint": "stylelint \"src/view/scss/partials/*.scss\"",
     "w3c": "html-validator --file public/index.html --verbose",
-    "lint": "eslint \"public/js/**/*.js\" \"src/**/*.js\"",
-    "all": "npm run stylelint && npm run w3c && npm run lint && node -e \"console.log('npm run all completed.')\"",
-    "sass": "sass --watch src/view/scss/main.scss public/css/styles.css"
+    "eslint": "eslint \"public/js/**/*.js\" \"src/**/*.js\"",
+    "alltests": "npm run stylelint && npm run w3c && npm run eslint && node -e \"console.log('npm run all tests completed.')\"",
+    "watchcss": "sass --watch src/view/scss/main.scss public/css/styles.css",
+    "compilecss": "sass src/view/scss/main.scss public/css/styles.css",
+    "serve": "nodemon src/main.js",
+    "start": "npm run compilecss && npm run serve"
   },
   "author": "Philip Park",
   "license": "ISC",
@@ -25,11 +27,11 @@
     "eslint-plugin-import": "^2.26.0",
     "html-validator-cli": "^7.0.1",
     "nodemon": "^2.0.16",
+    "postcss": "^8.4.13",
     "prettier": "2.6.2",
     "sass": "^1.51.0",
     "stylelint": "^14.8.2",
     "stylelint-config-recommended-scss": "^6.0.0",
-    "stylelint-config-standard": "^25.0.0",
-    "postcss": "^8.4.13"
+    "stylelint-config-standard": "^25.0.0"
   }
 }
