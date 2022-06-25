@@ -6,8 +6,6 @@ The database will be filled with dummy data if started with 0 entries. To avoid 
 
 ## Available commands:
 
-#### `` 
-
 | Command              | Description                                                              |
 |----------------------|--------------------------------------------------------------------------|
 | `npm run start`      | **Everything you need to start the web server at http://localhost:1337** |
